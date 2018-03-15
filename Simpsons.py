@@ -39,8 +39,22 @@ while abs(reldiff) > accu:
     reldiff = (old-new)/old
 print cnt
 plt.close()
-for i in range(1000,5000,10):
+plt.figure(1)
+for i in range(500,5000,10):
     Trap(f,0,1,i)
     Simp(f,0,1,i)
 plt.semilogx()
-plt.show()
+plt.xlabel('number of subintervals, N')
+plt.ylabel('Error')
+plt.title('Global Error Comparison')
+plt.savefig('globalerrorcomparison.pdf')
+plt.close()
+plt.figure(2)
+for i in range(500,3000,10):
+    Simp(f,0,1,i)
+plt.semilogx()
+plt.xlabel('number of subintervals, N')
+plt.ylabel('Error')
+plt.title('Global Error Comparison')
+plt.savefig('globalerrorcomparison2.pdf')
+plt.close()

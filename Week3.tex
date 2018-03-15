@@ -1,33 +1,24 @@
 \documentclass{article}
 \usepackage{pdfpages}
-
-\newcommand{\cdw}[1]
-           {{\color{blue} [CDW: comment] #1}}
-\newcommand{\correct}[1]
-           {{\color{red} [CDW: needs correction] #1}}
-           
-           \title{Ph20.2 - Introduction to Numerical Techniques: Numerical Integration
-           \correct{}}
+\usepackage{amsmath}
+\title{Ph20.2 - Introduction to Numerical Techniques: Numerical Integration}
 \author{Stella Wang}
 \date{24 January 2018}
-
 \begin{document}
-\maketitle
-\correct{I don't see plots. Can you give me a script to re-generate them?}
+	\maketitle
 \section{Simpson's formula}
-\[I \simeq I_{simp} \equiv H\bigg ( \frac{f(a)}{6} + \frac{4f(c)}{6} + \frac{f(b)}{6} \bigg) ; \]
-\[ \int_a^b f(x)dx = H \Bigg( \frac{f(x_0)}{6} + \frac{4f(x_1)}{6}  + \frac{f(x_2)}{6} \Bigg) + H \Bigg( \frac{f(x_2)}{6} + \frac{4f(x_3)}{6}  + \frac{f(x_4)}{6} \Bigg)+ \cdots + H \Bigg( \frac{f(x_{n-2})}{6} + \frac{4f(x_{n-1})}{6}  + \frac{f(x_n)}{6} \Bigg) \]
-\[ \equiv \frac{h}{3} \Bigg( f(x_0) +4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + \cdots + 4f(x_{n-1}) + f(x_n) \Bigg) \]
-\[ f(x) = f(a) + f'(a)(x-a) + \frac {f''(a)}{2!}(x-a)^2 + \frac {f'''(a)}{3!}(x-a)^3+ \frac{f^4(\eta)}{4!} \]
-\[I = f(a)H + f'(a)\frac{H^2}{2!} + f''(a)\frac{H^3}{3!} + f'''(a)\frac{H^4}{4!} + f^4(\eta)\frac{H^5}{5!} \]
-\[I_{simp} = H\bigg ( \frac{f(a)}{6} + \frac{4f(c)}{6} + \frac{f(b)}{6} \bigg) =\]
-\correct{
-  \begin{enumerate}
-  \item You can make this a lot cleaner with the align environment. (In particular, you should split up the second line so it actually fits on the page.)
-  \item It's not clear to me how your agument proceeds---perhaps you could reorganize and add some explanatory prose?
-  \item (Also doesn't look like you finished.)
-  \end{enumerate}
-}
+
+\[I \simeq I_{simp} \equiv H\bigg ( \frac{f(a)}{6} + \frac{4f(c)}{6} + \frac{f(b)}{6} \bigg) \]
+ \[\int_a^b f(x)dx = H \Bigg( \frac{f(x_0)}{6} + \frac{4f(x_1)}{6}  + \frac{f(x_2)}{6} \Bigg) + H \Bigg( \frac{f(x_2)}{6} + \]
+\[ \frac{4f(x_3)}{6}  + \frac{f(x_4)}{6} \Bigg) + \cdots + H \Bigg( \frac{f(x_{n-2})}{6} + \frac{4f(x_{n-1})}{6}  + \frac{f(x_n)}{6} \Bigg) \]
+\[\equiv \frac{h}{3} \Bigg( f(x_0) +4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + \cdots + 4f(x_{n-1}) + f(x_n) \Bigg)  \]
+\[f(x) = f(a) + f'(a)(x-a) + \frac {f''(a)}{2!}(x-a)^2 + \frac {f'''(a)}{3!}(x-a)^3+ \frac{f^4(\eta)}{4!}  \]
+\[ I = f(a)H  + f''(a)\frac{H^3}{3!} + f^{iv}(\eta)\frac{H^5}{5!}  \]
+\[I_{simp} = H\bigg ( \frac{f(a)}{6} + \frac{4f(c)}{6} + \frac{f(b)}{6} \bigg) = \frac{h}{3} \Bigg( f(x-h)+4f(x)+f(x+h) \Bigg)  \]
+expanding $f(x-h)$ and $f(x+h)$ by Taylor's theorem: 
+\[ I_{simp}= \frac{h}{3} \Bigg( 6f(x) + h^2f''(x) + \frac{2h^4}{4!}f'^{iv}(x)+ \frac{2h^6}{6!}f^{vi}(x)+... \Bigg)  \]
+\[ I_{simp}-I= {h^5}\Bigg( \Big( \frac{2}{3*4!}-\frac{2}{5!} \Big) f^{iv}(\eta) +  \cdots  = \frac{h^5}{90}f^{iv}(\eta) + \cdots\]
+\[ Composite Simpsons Error = - \frac{h^4}{180}(b-a)f^{iv}(\eta)\]
 
 This is a plot of the convergence rate of the error for the trapezoid rule and Simpson's method for N ranging from 500 to 5000. The red curve represents the Simpson's method and the blue curve shows the trapezoid rule. The x axis is in log scale in order to show that the trapezoid rule does not reach the simpson's method error rapidly. The second graph shows just the Simpson's method for N 500 to 3000. From this graph it is more clear that the Simpson's method error stops decreasing around 2000. This is most likely because of the limits of the machine when the subintervals become that small. 
 \includepdf[pages={1}]{globalerrorcomparison.pdf}
